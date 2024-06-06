@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendas por Data</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #343a40;
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            color: #6c757d;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        th, td {
+            color: #495057;
+            border-color: #dee2e6;
+        }
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Vendas por Data</h1>
+    <form th:action="@{/vendas}" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="dataInicial">Data Inicial:</label>
+                <input type="date" class="form-control" id="dataInicial" name="dataInicial" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="dataFinal">Data Final:</label>
+                <input type="date" class="form-control" id="dataFinal" name="dataFinal" required>
+            </div>
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </div>
+        </div>
+    </form>
+
+    <div th:if="${mensagem != null}" class="alert alert-warning" role="alert">
+        <span th:text="${mensagem}"></span>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Observações</th>
+            <th>Data</th>
+            <th>Total</th>
+            <th>Cliente</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="venda : ${vendas}">
+            <td th:text="${venda.id}"></td>
+            <td th:text="${venda.observacoes}"></td>
+            <td th:text="${venda.data}"></td>
+            <td th:text="${venda.total}"></td>
+            <td th:text="${venda.cliente != null ? venda.cliente.nome : 'Sem cliente'}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
