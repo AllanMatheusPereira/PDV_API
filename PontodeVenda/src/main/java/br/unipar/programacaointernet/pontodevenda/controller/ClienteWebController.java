@@ -25,7 +25,7 @@ public class ClienteWebController {
         return "clientes";
     }
 
-    @PostMapping(path = "/clienetes/save")
+    @PostMapping(path = "/clientes/save")
     public String saveCliente(Cliente cliente) {
         clienteService.save(cliente);
         return "redirect:/clientes";

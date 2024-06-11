@@ -1,5 +1,6 @@
 package br.unipar.programacaointernet.pontodevenda.service;
 
+import br.unipar.programacaointernet.pontodevenda.model.ItemVenda;
 import br.unipar.programacaointernet.pontodevenda.model.Produto;
 import br.unipar.programacaointernet.pontodevenda.model.Venda;
 import br.unipar.programacaointernet.pontodevenda.repository.ProdutoRepository;
@@ -24,7 +25,11 @@ public class VendaService {
 
     public Venda save(Venda venda){
 
-//        fazer a logica pra inserir id da venda no item venda.....0
+        Venda savedVenda = this.vendaRepository.save(venda);
+
+        for (ItemVenda item : savedVenda.getItens()) {
+            item.setVenda(savedVenda);
+        }
 
         return this.vendaRepository.save(venda);
     }
